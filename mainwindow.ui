@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* 全局设置 */
+QWidget {
+    font-family: &quot;Microsoft YaHei&quot;, &quot;Segoe UI&quot;, sans-serif;
+    font-size: 12px;
+    color: #333333;
+}
+
+/* 主窗口背景 */
+QMainWindow, QWidget#centralwidget {
+    background-color: #F5F7FA; /* 浅灰蓝背景 */
+}
+
+/* 标签样式 (选择excel, 选择sheet) */
+QLabel {
+    font-weight: bold;
+    color: #606266;
+    padding: 5px;
+}
+
+/* 输入框样式 (文件路径) */
+QLineEdit#lineEdit_filePath {
+    background-color: #FFFFFF;
+    border: 1px solid #DCDFE6;
+    border-radius: 4px;
+    padding: 6px 10px;
+    selection-background-color: #409EFF;
+}
+QLineEdit#lineEdit_filePath:focus {
+    border: 1px solid #409EFF;
+    outline: none;
+}
+
+/* 下拉框样式 (选择sheet) */
+QComboBox#comboBox {
+    background-color: #FFFFFF;
+    border: 1px solid #DCDFE6;
+    border-radius: 4px;
+    padding: 5px 10px;
+    min-width: 120px;
+}
+QComboBox#comboBox:focus {
+    border: 1px solid #409EFF;
+}
+QComboBox#comboBox::drop-down {
+    border: none;
+    width: 20px;
+}
+QComboBox#comboBox::down-arrow {
+    image: none; /* 隐藏默认箭头，或者你可以放一个图标 */
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid #C0C4CC;
+    margin-right: 8px;
+}
+
+/* 按钮通用样式 */
+QPushButton {
+    background-color: #FFFFFF;
+    border: 1px solid #DCDFE6;
+    border-radius: 4px;
+    padding: 6px 15px;
+    font-weight: bold;
+    color: #606266;
+}
+QPushButton:hover {
+    color: #409EFF;
+    border-color: #C6E2FF;
+    background-color: #ECF5FF;
+}
+QPushButton:pressed {
+    background-color: #409EFF;
+    color: white;
+    border-color: #409EFF;
+}
+
+/* 特定按钮样式：如果是主要操作按钮（比如“解析”），可以单独加强 */
+QPushButton#pushButton_2 { 
+    /* 这里假设 pushButton_2 是“解析”按钮，给它一个主色调 */
+    background-color: #409EFF;
+    color: white;
+    border: 1px solid #409EFF;
+}
+QPushButton#pushButton_2:hover {
+    background-color: #66B1FF;
+    border-color: #66B1FF;
+    color: white;
+}
+QPushButton#pushButton_2:pressed {
+    background-color: #3A8EE6;
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <layout class="QGridLayout" name="gridLayout" rowstretch="2,1,1,2" columnstretch="1,0,0,1,0,1,1">
+    <item row="2" column="5">
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="text">
+       <string>解析</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>选择sheet</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="5">
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>选择</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="6">
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="3" column="1">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="3">
+     <widget class="QLineEdit" name="lineEdit_filePath"/>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>选择excel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="3">
+     <widget class="QComboBox" name="comboBox"/>
+    </item>
+    <item row="0" column="1">
+     <spacer name="verticalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
