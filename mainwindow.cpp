@@ -151,17 +151,23 @@ void MainWindow::handlelinetype(json& jsonObj, int lineindex, QString linename, 
     }
 
     if (linetype == 1) {
+        std::string keyStr = linename.toStdString();
+
         if (secondline[lineindex] == "int") {
-            jsonObj[linename.toStdString()] = text.toInt();
+            if (isIntegerString(text)) {
+                jsonObj[keyStr] = text.toLongLong();
+            } else {
+                jsonObj[keyStr] = text.toDouble();
+            }
         }
         else if (secondline[lineindex] == "str") {
-            jsonObj[linename.toStdString()] = text.toStdString();
+            jsonObj[keyStr] = text.toStdString();
         }
         else if (secondline[lineindex] == "json") {
             try {
-                jsonObj[linename.toStdString()] = json::parse(text.toStdString());
+                jsonObj[keyStr] = json::parse(text.toStdString());
             } catch (...) {
-                jsonObj[linename.toStdString()] = text.toStdString();
+                jsonObj[keyStr] = text.toStdString();
             }
         }
     }
@@ -200,18 +206,20 @@ void MainWindow::handlelinetype(json& jsonObj, int lineindex, QString linename, 
 
         json lsjsonarray = json::array();
         for (int i = 0; i < testlist.size(); ++i) {
-
             QString item = testlist[i].trimmed();
             if (item.isEmpty()) continue;
 
             if (secondline[lineindex] == "int") {
-                lsjsonarray.push_back(item.toInt());
+                if (isIntegerString(item)) {
+                    lsjsonarray.push_back(item.toLongLong());
+                } else {
+                    lsjsonarray.push_back(item.toDouble());
+                }
             }
             else if (secondline[lineindex] == "str") {
                 lsjsonarray.push_back(item.toStdString());
             }
         }
-
         jsonObj[keyStr] = lsjsonarray;
     }
 
@@ -232,8 +240,6 @@ void MainWindow::handlelinetype(json& jsonObj, int lineindex, QString linename, 
             if (remaining.startsWith(".")) remaining = remaining.mid(1);
 
             QString nextlinenamecheck = getnextlinename(linename);
-            qDebug() << "[L4 CHECK]" << "remaining:" << remaining << "nextlinenamecheck:" << nextlinenamecheck;
-            qDebug() << "[L4 CHECK]" << "latestItem keys:" << latestItem.dump().c_str();
 
             //是否需要新对象
             bool needNewObject = false;
@@ -308,6 +314,17 @@ QString MainWindow::getnextlinename(QString input)
     }
 
     return (cutPos == -1) ? target : target.left(cutPos);
+}
+
+bool MainWindow::isIntegerString(const QString &str)
+{
+    QString s = str.trimmed();
+    if (s.isEmpty()) return false;
+    int start = (s[0] == '-' || s[0] == '+') ? 1 : 0;
+    for (int i = start; i < s.size(); ++i) {
+        if (!s[i].isDigit()) return false;
+    }
+    return true;
 }
 
 

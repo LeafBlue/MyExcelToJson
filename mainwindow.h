@@ -38,6 +38,8 @@ public:
     //辅助
     QString getnextlinename(QString input);
 
+    bool isIntegerString(const QString& str);
+
 private slots:
     void on_pushButton_clicked();
     void on_pushButton_2_clicked();
