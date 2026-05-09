@@ -11,7 +11,7 @@
 
 #include "json.hpp"
 
-using json = nlohmann::json;
+using json = nlohmann::ordered_json;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
